@@ -8,9 +8,9 @@ type “m” - for count of months,
 type “p” - for monthly payment:"""
 )
 
-type = input()
+calc_type = input()
 
-if type is 'm':
+if calc_type is 'm':
     payment = float(input('Enter monthly payment: '))
     months = principal / payment
     if abs(int(months) * payment - principal) > epsilon:
@@ -18,7 +18,7 @@ if type is 'm':
     else:
         months = int(months)
     print('It takes {} months to repay the credit'.format(months))
-elif type is 'p':
+elif calc_type is 'p':
     months = int(input('Enter count of months: '))
     payment = principal / months
     if abs(months * int(payment) - principal) < epsilon:
