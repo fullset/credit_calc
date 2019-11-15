@@ -43,7 +43,7 @@ def calc_diff_payment(_args):
         else:
             diff = int(diff) + 1
 
-        print('Month {}: paid out {}!'.format(m, diff))
+        print('Month {}: paid out {}'.format(m, diff))
         payments.append(diff)
 
     paid = sum(item for item in payments)
@@ -72,7 +72,7 @@ def calc_periods(_args):
     epsilon = 0.00001
     payment = _args.payment
     principal = _args.principal
-    interest = _args.interest
+    interest = _args.interest / 1200
 
     months = math.log(
         payment / (payment - principal * interest),
@@ -92,6 +92,7 @@ def calc_periods(_args):
             int(months / 12),
             months % 12
         ))
+    print("Overpayment: {}".format(int(months * payment - principal)))
 
 
 def calc_principal(_args):
@@ -103,6 +104,7 @@ def calc_principal(_args):
     principal = principal * ((1 + interest) ** months - 1)
 
     print('Your credit principal is {}!'.format(int(principal)))
+    print("Overpayment: {}".format(int(months * payment) - int(principal)))
 
 
 parser = argparse.ArgumentParser()
