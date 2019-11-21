@@ -3,12 +3,12 @@ import math
 import argparse
 
 
-def check_params() -> None:
+def check_params():
     none_count = 0
 
     if args.payment_type is None or args.interest is None:
         print('Incorrect parameters')
-        exit(0)
+        return 1
 
     if args.payment is None:
         none_count = none_count + 1
@@ -19,11 +19,11 @@ def check_params() -> None:
 
     if none_count != 1:
         print('Incorrect parameters')
-        exit(0)
+        return 1
 
     if args.payment_type == 'diff' and args.payment is not None:
         print('Incorrect parameters')
-        exit(0)
+        return 1
 
 
 def calc_diff_payment(_args):
@@ -115,14 +115,14 @@ parser.add_argument('--interest', type=float)
 parser.add_argument('--principal', type=float)
 args = parser.parse_args()
 
-check_params()
+if check_params() == 0:
 
-if args.payment_type == 'diff':
-    calc_diff_payment(args)
-else:
-    if args.payment is None:
-        calc_annuity_payment(args)
-    elif args.periods is None:
-        calc_periods(args)
+    if args.payment_type == 'diff':
+        calc_diff_payment(args)
     else:
-        calc_principal(args)
+        if args.payment is None:
+            calc_annuity_payment(args)
+        elif args.periods is None:
+            calc_periods(args)
+        else:
+            calc_principal(args)
